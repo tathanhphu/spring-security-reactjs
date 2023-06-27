@@ -27,7 +27,7 @@ public class JwtTokenUtil implements Serializable {
     @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${jwt.token.validity:7200}")
+    @Value("${jwt.token.validity:18000}")
     public long jwtTokenValidity;
     //retrieve username from jwt token
     public String getUsernameFromToken(String token) {

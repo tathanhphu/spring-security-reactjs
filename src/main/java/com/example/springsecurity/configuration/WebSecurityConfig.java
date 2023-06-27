@@ -2,6 +2,7 @@ package com.example.springsecurity.configuration;
 
 import com.example.springsecurity.jwt.JWTAuthenticationFilter;
 import com.example.springsecurity.jwt.JWTAuthorizationFilter;
+import com.example.springsecurity.jwt.JWTAuthorizationFilterEx;
 import com.example.springsecurity.jwt.JwtTokenUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 import static com.example.springsecurity.jwt.SecurityConstants.SIGN_IN_URL;
 
@@ -38,7 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter { // (1)
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtTokenUtil))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtTokenUtil))
+                //.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtTokenUtil))
+                .addFilterBefore(new JWTAuthorizationFilterEx(jwtTokenUtil), FilterSecurityInterceptor.class)
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

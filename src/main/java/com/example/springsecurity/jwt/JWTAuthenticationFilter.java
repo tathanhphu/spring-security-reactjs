@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.springsecurity.jwt.SecurityConstants.SIGN_IN_URL;
 
@@ -57,8 +59,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         if (auth.getPrincipal() instanceof UserDetails) {
             UserDetails u = (UserDetails)auth.getPrincipal();
             String token = jwtTokenUtil.generateToken(u);
-            String body =  token;
-            res.getWriter().write(body);
+            Map<String, String> tokenObj = new HashMap();
+            tokenObj.put("token", token);
+            res.setContentType("application/json");
+            res.getWriter().println(new ObjectMapper().writeValueAsString(tokenObj));
             res.getWriter().flush();
         }
 
