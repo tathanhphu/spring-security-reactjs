@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class Home {
     @GetMapping(value = "/whoami")
     public ResponseEntity<?> whoami(Authentication authentication) {
-        return ResponseEntity.ok(null != authentication ? authentication.getName(): "Anonymous");
+        return ResponseEntity.ok(null != authentication ? authentication: "{\"username\": \"Anonymous\"}");
     }
 }

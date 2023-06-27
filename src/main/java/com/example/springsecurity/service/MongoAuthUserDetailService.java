@@ -25,7 +25,9 @@ public class MongoAuthUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
         com.example.springsecurity.domain.User user = userRepository.findUserByUsername(userName);
-
+        if (null == user) {
+            throw new UsernameNotFoundException("Not found username: " + userName);
+        }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
         user.getAuthorities()
