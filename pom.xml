@@ -123,25 +123,47 @@
 				</executions>
 			</plugin>
 
+<!--			<plugin>-->
+<!--				<artifactId>maven-antrun-plugin</artifactId>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<phase>generate-resources</phase>-->
+<!--						<configuration>-->
+<!--							<target>-->
+<!--								<copy todir="${project.build.outputDirectory}/public">-->
+<!--									<fileset dir="${project.basedir}/src/main/app/build"/>-->
+<!--								</copy>-->
+<!--							</target>-->
+<!--						</configuration>-->
+<!--						<goals>-->
+<!--							<goal>copy-re</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+<!--			-->
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
-						<phase>generate-resources</phase>
-						<configuration>
-							<target>
-								<copy todir="${project.build.outputDirectory}/public">
-									<fileset dir="${project.basedir}/src/main/app/build"/>
-								</copy>
-							</target>
-						</configuration>
+						<id>position-react-build</id>
 						<goals>
-							<goal>run</goal>
+							<goal>copy-resources</goal>
 						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${frontend-src-dir}/build</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
 
 			<!--E.N.D Integrate ReactJS-->
 		</plugins>
