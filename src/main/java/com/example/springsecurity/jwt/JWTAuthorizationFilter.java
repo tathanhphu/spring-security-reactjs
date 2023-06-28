@@ -19,6 +19,7 @@ import java.util.Set;
 import static com.example.springsecurity.jwt.SecurityConstants.HEADER_STRING;
 import static com.example.springsecurity.jwt.SecurityConstants.TOKEN_PREFIX;
 
+@Deprecated(forRemoval = true)
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private JwtTokenUtil jwtTokenUtil;
